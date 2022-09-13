@@ -6,6 +6,7 @@
     box-sizing: border-box;
     color: inherit;
     text-decoration: inherit;
+    font-size: inherit;
 }
 
 :root {
@@ -54,6 +55,16 @@
 #sketch-box {
     width: 500px;
     height: 500px;
+}
+
+#settings {
+    margin: 1rem 0;
+    font-size: 1.7rem;
+}
+
+#settings>button {
+    padding: 0.2em 1em;
+    border-radius: 1.2em;
 }
 
 #footer {

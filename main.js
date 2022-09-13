@@ -16,9 +16,20 @@ document.addEventListener("mouseup", (e) => {
     isMouseDown = false;
 })
 
+// AddEventListener for settings
+const clearBtn = document.querySelector("#clear-btn");
+clearBtn.addEventListener("click", (e) => {
+    const pixels = document.querySelectorAll(".pixel");
+    pixels.forEach((pixel) => pixel.removeAttribute("style"));
+})
+
+function clearSketchBox() {
+    sketchBox.innerHTML = "";
+}
+
 function createGrids(sketchBox, dimension) {
     // Empty the sketch box
-    sketchBox.innerHTML = "";
+    clearSketchBox();
 
     // Insert all the grids og the sketchBox
     for (let i = 1; i < dimension; i++) {
