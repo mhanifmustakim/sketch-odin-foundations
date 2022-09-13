@@ -16,10 +16,14 @@
             <header>Etch-a-Sketch</header>
         </div>
         <div id="content" class="container justify-center align-center">
-            <div class="container flex-column justify-center">
+            <div class="container flex-column justify-center align-center">
                 <div id="sketch-box" class="container flex-column"></div>
                 <div id="settings" class="container justify-center">
-                    <button id="clear-btn">Clear</button>
+                    <button id="clear-btn" class="settings-optn">Clear</button>
+                    <div class="settings-optn">
+                        <label for="box-size">Change Size:</label>
+                        <input type="number" min="10" max="64" name="box-size" id="box-size" placeholder="10 - 64">
+                    </div>
                 </div>
             </div>
         </div>

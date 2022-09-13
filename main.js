@@ -7,12 +7,10 @@ const colorPixel = (pixel, color) => {
 
 // Detects if mouse is pressed in the global scope
 document.addEventListener("mousedown", (e) => {
-    e.preventDefault();
     isMouseDown = true;
 })
 
 document.addEventListener("mouseup", (e) => {
-    e.preventDefault();
     isMouseDown = false;
 })
 
@@ -23,21 +21,29 @@ clearBtn.addEventListener("click", (e) => {
     pixels.forEach((pixel) => pixel.removeAttribute("style"));
 })
 
+const boxSize = document.querySelector("#box-size");
+boxSize.addEventListener("change", (e) => {
+    const input = e.target.value;
+    if (input < 10 || input > 64) {
+        return
+    }
+
+    clearSketchBox();
+    createGrids(sketchBox, input);
+})
+
 function clearSketchBox() {
     sketchBox.innerHTML = "";
 }
 
 function createGrids(sketchBox, dimension) {
-    // Empty the sketch box
-    clearSketchBox();
-
     // Insert all the grids og the sketchBox
-    for (let i = 1; i < dimension; i++) {
+    for (let i = 0; i < dimension; i++) {
         // Create a row
         const row = document.createElement("div");
         row.classList.add("container");
         row.classList.add("pixel-row");
-        for (let j = 1; j < dimension; j++) {
+        for (let j = 0; j < dimension; j++) {
             // Create and insert all pixels in Row
             const pixel = document.createElement("div");
             pixel.classList.add("pixel");
