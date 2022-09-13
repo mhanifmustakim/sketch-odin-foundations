@@ -4,4 +4,44 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+:root {
+    font-size: 12px;
+}
+
+.container {
+    display: flex;
+}
+
+.flex-column {
+    flex-flow: column nowrap;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+#main {
+    min-height: 100vh;
+}
+
+#header {
+    height: 5rem;
+    font-size: 2.5rem;
+}
+
+#content {
+    flex: 1;
+}
+
+#footer {
+    height: 3rem;
+    font-size: 1.5rem;
 }
