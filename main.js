@@ -1,5 +1,6 @@
 const sketchBox = document.querySelector("#sketch-box");
 let isMouseDown = false;
+let currentState = "black";
 
 const colorPixel = (pixel, color) => {
     pixel.style.backgroundColor = color;
@@ -16,12 +17,14 @@ document.addEventListener("mouseup", (e) => {
 
 // AddEventListener for settings
 const clearBtn = document.querySelector("#clear-btn");
+const eraseBtn = document.querySelector("#erase-btn");
+const boxSize = document.querySelector("#box-size");
+
 clearBtn.addEventListener("click", (e) => {
     const pixels = document.querySelectorAll(".pixel");
     pixels.forEach((pixel) => pixel.removeAttribute("style"));
 })
 
-const boxSize = document.querySelector("#box-size");
 boxSize.addEventListener("change", (e) => {
     const input = e.target.value;
     if (input < 10 || input > 64) {
@@ -32,8 +35,30 @@ boxSize.addEventListener("change", (e) => {
     createGrids(sketchBox, input);
 })
 
+eraseBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    eraseBtn.classList.toggle("activated");
+    if (currentState !== "eraser") {
+        currentState = "eraser";
+    } else {
+        currentState = "black";
+    }
+})
+
+// Function to handle DOM
 function clearSketchBox() {
     sketchBox.innerHTML = "";
+}
+
+function handleState(pixel, currentState) {
+    switch (currentState) {
+        case "black":
+            colorPixel(pixel, "black");
+            return
+        case "eraser":
+            pixel.removeAttribute("style");
+            return
+    }
 }
 
 function createGrids(sketchBox, dimension) {
@@ -53,14 +78,14 @@ function createGrids(sketchBox, dimension) {
                 e.preventDefault();
                 if (isMouseDown) {
                     const pixel = e.target;
-                    colorPixel(pixel, "black");
+                    handleState(pixel, currentState);
                 }
             })
 
             pixel.addEventListener("click", (e) => {
                 e.preventDefault();
                 const pixel = e.target;
-                colorPixel(pixel, "black");
+                handleState(pixel, currentState);
             })
 
             row.appendChild(pixel);

@@ -34,6 +34,10 @@ input:focus-visible {
     align-items: center;
 }
 
+.justify-space-around {
+    justify-content: space-around;
+}
+
 .pixel-row {
     width: 100%;
     flex: 1;
@@ -48,6 +52,11 @@ input:focus-visible {
 .settings-optn {
     padding: 0.2em 1em;
     border-radius: 1.2em;
+    margin: 0 0.5rem;
+}
+
+.activated {
+    background-color: rgb(169, 211, 18);
 }
 
 #main {
