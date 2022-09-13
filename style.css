@@ -28,6 +28,16 @@
     align-items: center;
 }
 
+.pixel-row {
+    width: 100%;
+    flex: 1;
+}
+
+.pixel {
+    flex: 1;
+    border: black 1px solid;
+}
+
 #main {
     min-height: 100vh;
 }
@@ -39,6 +49,11 @@
 
 #content {
     flex: 1;
+}
+
+#sketch-box {
+    width: 500px;
+    height: 500px;
 }
 
 #footer {
