@@ -18,6 +18,11 @@ input:focus-visible {
     outline: none;
 }
 
+h1 {
+    font-size: 3rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .container {
     display: flex;
 }
@@ -85,7 +90,6 @@ input:focus-visible {
 }
 
 #settings {
-    margin: 2rem 0;
     font-size: 1.7rem;
     flex-flow: wrap;
 }
