@@ -45,8 +45,11 @@ input:focus-visible {
 
 .pixel {
     flex: 1;
-    border: black 1px solid;
     background-color: white;
+}
+
+.outlined {
+    border: black 1px solid;
 }
 
 .settings-optn {
@@ -75,6 +78,7 @@ input:focus-visible {
 #sketch-box {
     width: 700px;
     height: 700px;
+    border: grey 1px solid;
 }
 
 #settings {

@@ -19,10 +19,20 @@ document.addEventListener("mouseup", (e) => {
 const clearBtn = document.querySelector("#clear-btn");
 const eraseBtn = document.querySelector("#erase-btn");
 const boxSize = document.querySelector("#box-size");
+const toggleOutlineBtn = document.querySelector("#toggle-outline-btn");
+
+const settingsBtn = [eraseBtn, toggleOutlineBtn];
+const resetStates = () => {
+    settingsBtn.forEach((btn) => {
+        btn.classList.remove("activated");
+    })
+}
 
 clearBtn.addEventListener("click", (e) => {
     const pixels = document.querySelectorAll(".pixel");
     pixels.forEach((pixel) => pixel.removeAttribute("style"));
+    resetStates();
+    currentState = "black";
 })
 
 boxSize.addEventListener("change", (e) => {
@@ -37,6 +47,7 @@ boxSize.addEventListener("change", (e) => {
 
 eraseBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    resetStates();
     eraseBtn.classList.toggle("activated");
     if (currentState !== "eraser") {
         currentState = "eraser";
@@ -44,6 +55,15 @@ eraseBtn.addEventListener("click", (e) => {
         currentState = "black";
     }
 })
+
+toggleOutlineBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const pixels = document.querySelectorAll(".pixel");
+    pixels.forEach((pixel) => {
+        pixel.classList.toggle("outlined");
+    })
+})
+
 
 // Function to handle DOM
 function clearSketchBox() {
@@ -72,6 +92,7 @@ function createGrids(sketchBox, dimension) {
             // Create and insert all pixels in Row
             const pixel = document.createElement("div");
             pixel.classList.add("pixel");
+            pixel.classList.add("outlined");
 
             //Handle mouse event listeners on the pixels
             pixel.addEventListener("mousemove", (e) => {
