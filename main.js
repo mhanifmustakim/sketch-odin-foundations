@@ -1,6 +1,7 @@
 const sketchBox = document.querySelector("#sketch-box");
 let isMouseDown = false;
-let currentState = "black";
+let currentState = "color";
+let cache = null;
 
 const colorPixel = (pixel, color) => {
     pixel.style.backgroundColor = color;
@@ -18,13 +19,19 @@ document.addEventListener("mouseup", (e) => {
 // AddEventListener for settings
 const clearBtn = document.querySelector("#clear-btn");
 const eraseBtn = document.querySelector("#erase-btn");
+const colorBtn = document.querySelector("#color-btn");
 const boxSize = document.querySelector("#box-size");
 const toggleOutlineBtn = document.querySelector("#toggle-outline-btn");
 
-const settingsBtn = [eraseBtn, toggleOutlineBtn];
+const settingsBtn = {
+    eraser: eraseBtn,
+    color: colorBtn
+};
+
 const resetStates = () => {
-    settingsBtn.forEach((btn) => {
-        btn.classList.remove("activated");
+    settingsBtnKeys = Object.keys(settingsBtn);
+    settingsBtnKeys.forEach((btn) => {
+        settingsBtn[btn].classList.remove("activated");
     })
 }
 
@@ -32,7 +39,8 @@ clearBtn.addEventListener("click", (e) => {
     const pixels = document.querySelectorAll(".pixel");
     pixels.forEach((pixel) => pixel.removeAttribute("style"));
     resetStates();
-    currentState = "black";
+    settingsBtn["color"].classList.add("activated");
+    currentState = "color";
 })
 
 boxSize.addEventListener("change", (e) => {
@@ -48,12 +56,20 @@ boxSize.addEventListener("change", (e) => {
 eraseBtn.addEventListener("click", (e) => {
     e.preventDefault();
     resetStates();
-    eraseBtn.classList.toggle("activated");
     if (currentState !== "eraser") {
+        settingsBtn["eraser"].classList.add("activated");
+        cache = currentState.slice();
         currentState = "eraser";
     } else {
-        currentState = "black";
+        settingsBtn[cache].classList.add("activated");
+        currentState = cache.slice();
     }
+})
+
+colorBtn.addEventListener("click", (e) => {
+    resetStates();
+    colorBtn.classList.add("activated");
+    currentState = "color";
 })
 
 toggleOutlineBtn.addEventListener("click", (e) => {
@@ -72,8 +88,9 @@ function clearSketchBox() {
 
 function handleState(pixel, currentState) {
     switch (currentState) {
-        case "black":
-            colorPixel(pixel, "black");
+        case "color":
+            const customColor = document.querySelector("#custom-color");
+            colorPixel(pixel, customColor.value);
             return
         case "eraser":
             pixel.removeAttribute("style");
