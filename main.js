@@ -16,16 +16,20 @@ document.addEventListener("mouseup", (e) => {
     isMouseDown = false;
 })
 
+document.addEventListener("mousemove", (e) => e.preventDefault());
+
 // AddEventListener for settings
 const clearBtn = document.querySelector("#clear-btn");
 const eraseBtn = document.querySelector("#erase-btn");
 const colorBtn = document.querySelector("#color-btn");
+const rainbowBtn = document.querySelector("#rainbow-btn");
 const boxSize = document.querySelector("#box-size");
 const toggleOutlineBtn = document.querySelector("#toggle-outline-btn");
 
 const settingsBtn = {
     eraser: eraseBtn,
-    color: colorBtn
+    color: colorBtn,
+    rainbow: rainbowBtn
 };
 
 const resetStates = () => {
@@ -39,8 +43,12 @@ clearBtn.addEventListener("click", (e) => {
     const pixels = document.querySelectorAll(".pixel");
     pixels.forEach((pixel) => pixel.removeAttribute("style"));
     resetStates();
-    settingsBtn["color"].classList.add("activated");
-    currentState = "color";
+
+    if (currentState === "eraser") {
+        currentState = cache.slice();
+    }
+
+    settingsBtn[currentState].classList.add("activated");
 })
 
 boxSize.addEventListener("change", (e) => {
@@ -72,6 +80,12 @@ colorBtn.addEventListener("click", (e) => {
     currentState = "color";
 })
 
+rainbowBtn.addEventListener("click", (e) => {
+    resetStates();
+    rainbowBtn.classList.add("activated");
+    currentState = "rainbow";
+})
+
 toggleOutlineBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const pixels = document.querySelectorAll(".pixel");
@@ -95,6 +109,9 @@ function handleState(pixel, currentState) {
         case "eraser":
             pixel.removeAttribute("style");
             return
+        case "rainbow":
+            const randomColor = `hsl(${Math.floor(Math.random() * 365)}, 100%, 50%)`;
+            colorPixel(pixel, randomColor);
     }
 }
 
@@ -112,7 +129,7 @@ function createGrids(sketchBox, dimension) {
             pixel.classList.add("outlined");
 
             //Handle mouse event listeners on the pixels
-            pixel.addEventListener("mousemove", (e) => {
+            pixel.addEventListener("mouseenter", (e) => {
                 e.preventDefault();
                 if (isMouseDown) {
                     const pixel = e.target;

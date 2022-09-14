@@ -73,6 +73,9 @@ input:focus-visible {
 
 #content {
     flex: 1;
+    background-color: aliceblue;
+    border-top: black 1px solid;
+    border-bottom: black 1px solid;
 }
 
 #sketch-box {
@@ -84,6 +87,7 @@ input:focus-visible {
 #settings {
     margin: 2rem 0;
     font-size: 1.7rem;
+    flex-flow: wrap;
 }
 
 #box-size {
